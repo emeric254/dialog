@@ -9,8 +9,12 @@ function help {
 # that function does the audio output
 # requires as parameters "text", "voicename"
 function say {
-#    say $line -v "${voices[$voice]}"
-     echo "-"
+  if [ `which say 2>/dev/null` ]
+  then
+    say $line -v "${voices[$voice]}"
+  else
+    echo "command not found"
+  fi
 }
 
 # that function does all core features
