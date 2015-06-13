@@ -2,29 +2,19 @@
 
 # that function write to the standart output a help message of the script usage
 function help {
-  echo "Usage: dialog.sh filename"
-  echo "Please also verify that you have a voice synthesizer installed like [say] or [espeak]"
+  echo "Usage: $0 filename"
+  echo 'Please also verify that you have a voice synthesizer installed like (say) or (espeak)'
   exit 1
 }
 
 # that function verify that an output command exist
 function verifyOuput {
-  if [ `which say 2>/dev/null` ]
-  then
-    say $line -v "${voices[$voice]}"
-  else
-    if [ `which espeak 2>/dev/null` ]
-    then
-      espeak -v "${voices[$voice]}" $line
-    else
-      echo "no command found"
-    fi
-  fi
+  return [ `which say 2>/dev/null` ] || [ `which espeak 2>/dev/null` 
 }
 
 # that function does the audio output
 # requires as parameters "text", "voicename"
-function say {
+function processOutput {
   if [ `which say 2>/dev/null` ]
   then
     say $line -v "${voices[$voice]}"
@@ -45,13 +35,13 @@ function readDialog {
   while read line
   do
     echo "$line"
-    say $line "${voices[$voice]}"
+    processOutput $line "${voices[$voice]}"
     voice=!$voice
   done < $filename
 }
 
 
-if [ $# -lt 1 ] && [ ! verifyOutput ]
+if [ $# -lt 1 ] && [ !verifyOutput ]
 then
   help
 fi
