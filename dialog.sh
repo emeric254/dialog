@@ -1,8 +1,32 @@
 #!/bin/bash
+
+# that function write to the standart output a help message of the script usage
 function help {
   echo "Usage: dialog.sh filename"
   exit 1
 }
+
+# that function does the audio output
+# requires as parameters "text", "voicename"
+function say {
+#    say $line -v "${voices[$voice]}"
+     echo "-"
+}
+
+# that function does all core features
+# requires as parameters "filename", "voices", "voice"
+function readDialog {
+  filename=$1
+  voices=$2
+  voice=$3
+  while read line
+  do
+    echo "$line"
+    say $line "${voices[$voice]}"
+    voice=!$voice
+  done < $filename
+}
+
 
 if [ $# -lt 1 ] ; then
   help
@@ -27,9 +51,9 @@ do
   shift
 done
 
-while read line
-do
-  echo "$line"
-  say $line -v "${voices[$voice]}"
-  voice=!$voice
-done < $filename
+if [ -f $filename ]
+then
+  readDialog $filename $voices $voice
+else
+  help
+fi
