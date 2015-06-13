@@ -1,8 +1,11 @@
 #!/bin/bash
-
-if [ $# -lt 1 ] ; then
+function help {
   echo "Usage: dialog.sh filename"
   exit 1
+}
+
+if [ $# -lt 1 ] ; then
+  help
 fi
 
 voices=('Amelie' 'Thomas')
