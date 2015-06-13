@@ -13,7 +13,12 @@ function say {
   then
     say $line -v "${voices[$voice]}"
   else
-    echo "command not found"
+    if [ `which espeak 2>/dev/null` ]
+    then
+      espeak -v "${voices[$voice]}" $line
+    else
+      echo "command not found"
+    fi
   fi
 }
 
