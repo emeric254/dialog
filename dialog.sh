@@ -1,19 +1,19 @@
 #!/bin/bash
 
-# that function write to the standart output a help message of the script usage
+# This function writes to the standart output a help message of the script usage
 function help {
   echo "Usage: $0 filename"
-  echo 'Please also verify that you have a voice synthesizer installed like (say) or (espeak)'
+  echo "Please also verify that you have a voice synthesizer installed like (say) or (espeak)"
   exit 1
 }
 
-# that function verify that an output command exist
+# This function verifies that an output command exists
 function verifyOuput {
   return [ `which say 2>/dev/null` ] || [ `which espeak 2>/dev/null` 
 }
 
-# that function does the audio output
-# requires as parameters "text", "voicename"
+# This function does the audio output
+# requires parameters "text", "voicename"
 function processOutput {
   if [ `which say 2>/dev/null` ]
   then
@@ -26,8 +26,8 @@ function processOutput {
   fi
 }
 
-# that function does all core features
-# requires as parameters "filename", "voices", "voice"
+# This function does all the core features.
+# Requires parameters "filename", "voices", "voice"
 function readDialog {
   filename=$1
   voices=$2
