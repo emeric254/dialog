@@ -21,7 +21,7 @@ function processOutput {
   else
     if [ `which espeak 2>/dev/null` ]
     then
-      espeak -v "${voices[$voice]}" $line
+      echo $line | espeak -v "${voices[$voice]}" --stdin
     fi
   fi
 }
@@ -46,7 +46,13 @@ then
   help
 fi
 
-voices=('Amelie' 'Thomas')
+
+if [ `which say 2>/dev/null` ]
+then
+	voices=('Amelie' 'Thomas')
+else
+	voices=('fr-fr' 'fr-be')
+fi
 voice=0
 filename=''
 
