@@ -20,7 +20,8 @@ For Mac OS X it uses `say`.
 
  - `say`
 
- For Linux it uses `espeak`.
+
+For Linux it uses `espeak`.
 
  - `espeak`
 
